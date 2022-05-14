@@ -25,7 +25,9 @@ public class NotebookController extends HttpServlet {
 
 	@Override
 	public void init() {
-		try (BufferedReader br = new BufferedReader(new FileReader("/resources/initial-notebook.json"))) {
+		String INITIAL_NOTEBOOK_FILE = "/resources/initial-notebook.json";
+
+		try (BufferedReader br = new BufferedReader(new FileReader(INITIAL_NOTEBOOK_FILE))) {
 			String content = br.lines().collect(Collectors.joining()).replaceAll("[{}\":,\\[\\]]", "");
 			StringTokenizer tokenizer = new StringTokenizer(content);
 
