@@ -18,7 +18,7 @@
 	<input type="submit" value="Submit"/>
 </form>
 <br>
-<nav><a href="${pageContext.request.contextPath}/lab13/notebook">Go back</a></nav>
+<nav><a href="/lab13/notebook">Go back</a></nav>
 
 </body>
 </html>
