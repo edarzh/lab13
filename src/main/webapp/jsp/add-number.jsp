@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form method="GET" action="/lab13/notebook/add-number">
+<form method="POST" action="/lab13/notebook/add-number">
 	Name: <label>
 	<input name="name"/>
 </label>

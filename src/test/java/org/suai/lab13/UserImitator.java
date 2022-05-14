@@ -1,13 +1,11 @@
 package org.suai.lab13;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,14 +19,8 @@ public class UserImitator implements Runnable {
 
 	@Override
 	public void run() {
-		scheduler.scheduleWithFixedDelay(new GetNotebook(), 3, 3, TimeUnit.SECONDS);
-		scheduler.scheduleWithFixedDelay(new AddUser(), 3, 3, TimeUnit.SECONDS);
-
-		try {
-			Thread.sleep(1000000);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+		scheduler.scheduleWithFixedDelay(new GetNotebook(), 5, 5, TimeUnit.SECONDS);
+		scheduler.scheduleWithFixedDelay(new AddUser(), 15, 15, TimeUnit.SECONDS);
 	}
 
 	private static class GetNotebook implements Runnable {
@@ -62,19 +54,17 @@ public class UserImitator implements Runnable {
 		@Override
 		public void run() {
 			try {
-				HttpURLConnection connection = (HttpURLConnection) new URL(ADD_USER_URL).openConnection();
-				connection.setRequestMethod("GET");
+				String name = randomName();
+				String parameters = "name=" + name;
+				URL url = new URL(ADD_USER_URL);
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
 				connection.setDoOutput(true);
 
-				try (DataOutputStream out = new DataOutputStream(connection.getOutputStream())) {
-					String key = "name";
-					String value = randomName();
-
-					String parameter = URLEncoder.encode(key, StandardCharsets.UTF_8) + "=" + URLEncoder.encode(value,
-							StandardCharsets.UTF_8);
-
-					out.writeBytes(parameter);
+				try (OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream())) {
+					out.write(parameters);
 					out.flush();
+					connection.getInputStream();
 				}
 
 				connection.disconnect();

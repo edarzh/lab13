@@ -49,6 +49,13 @@ public class NotebookController extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Set<Map.Entry<String, List<String>>> notebook = notebookRepository.getCopy().entrySet();
+		request.setAttribute("notebook", notebook);
+		request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
+	}
+
+	@Override
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String uri = request.getRequestURI();
 
 		switch (uri) {
@@ -57,6 +64,7 @@ public class NotebookController extends HttpServlet {
 				if (name != null) {
 					notebookRepository.addUser(name);
 				}
+				request.getRequestDispatcher("/jsp/add-user.jsp").forward(request, response);
 			}
 			case ADD_NUMBER_URI -> {
 				String name = request.getParameter("name");
@@ -64,12 +72,9 @@ public class NotebookController extends HttpServlet {
 				if (name != null && number != null) {
 					notebookRepository.addNumber(name, number);
 				}
+				request.getRequestDispatcher("/jsp/add-number.jsp").forward(request, response);
 			}
 		}
-
-		Set<Map.Entry<String, List<String>>> notebook = notebookRepository.getCopy().entrySet();
-		request.setAttribute("notebook", notebook);
-		request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
 	}
 
 	private static boolean isNumber(String s) {

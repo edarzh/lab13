@@ -5,7 +5,7 @@
 	<title>Add user</title>
 </head>
 <body>
-<form method="GET" action="/lab13/notebook/add-user">
+<form method="POST" action="/lab13/notebook/add-user">
 	Name: <label>
 	<input name="name"/>
 </label>
