@@ -49,7 +49,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
                 <configuration>
-                    <warName>lab13.war</warName>
+                    <warName>lab13</warName>
                 </configuration>
             </plugin>
             <plugin>
