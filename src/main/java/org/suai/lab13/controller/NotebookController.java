@@ -60,7 +60,7 @@ public class NotebookController extends HttpServlet {
 		switch (uri) {
 			case ADD_USER_URI -> {
 				String name = request.getParameter("name");
-				if (name != null) {
+				if (name != null && name.length() > 0) {
 					notebookRepository.addUser(name);
 				}
 				request.getRequestDispatcher("/jsp/add-user.jsp").forward(request, response);
@@ -68,7 +68,7 @@ public class NotebookController extends HttpServlet {
 			case ADD_NUMBER_URI -> {
 				String name = request.getParameter("name");
 				String number = request.getParameter("number");
-				if (name != null && number != null) {
+				if (name != null && number != null && name.length() > 0 && number.length() > 0) {
 					notebookRepository.addNumber(name, number);
 				}
 				request.getRequestDispatcher("/jsp/add-number.jsp").forward(request, response);
