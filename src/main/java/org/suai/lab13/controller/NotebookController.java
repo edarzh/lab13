@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -49,7 +48,7 @@ public class NotebookController extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Set<Map.Entry<String, List<String>>> notebook = notebookRepository.getCopy().entrySet();
+		Set<Map.Entry<String, Set<String>>> notebook = notebookRepository.getCopy().entrySet();
 		request.setAttribute("notebook", notebook);
 		request.getRequestDispatcher("/jsp/main.jsp").forward(request, response);
 	}
