@@ -32,7 +32,7 @@ public class NotebookRepository {
 			if (numberList != null) {
 				numberList.add(number);
 			} else {
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("User doesn't exist");
 			}
 		} finally {
 			writeLock.unlock();
