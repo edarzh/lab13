@@ -17,9 +17,7 @@ public class NotebookRepository {
 	public void addUser(String name) {
 		writeLock.lock();
 		try {
-			if (!notebook.containsKey(name)) {
-				notebook.put(name, new HashSet<>());
-			}
+			notebook.putIfAbsent(name, new HashSet<>());
 		} finally {
 			writeLock.unlock();
 		}
